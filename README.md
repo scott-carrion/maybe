@@ -4,7 +4,9 @@
 # Maybe: The personal finance app for everyone
 
 > [!IMPORTANT]
-> This repository is no longer actively maintained. You can read more about this in our [final release](https://github.com/maybe-finance/maybe/releases/tag/v0.6.0).
+> This repository is no longer actively maintained by its original authors. You can read more about this in their [final release](https://github.com/maybe-finance/maybe/releases/tag/v0.6.0).
+> This is now maintained by Scott Carrion. To date, the only changes are inclusion of a compose.yml with frozen sha256 digests (orignal maintainers were using 'latest', which could unexpectedly cause build issues in the future) and the merge of a "copy previous month's budget" feature that was sorely needed and implemented by a fellow community member. [Link to their original fork](https://github.com/sathudeva7/maybe/tree/sathu-budget-copy-feature)
+> The only other feature I'm thinking of adding is some kind of integration with the Plaid API to auto-sync/import transactions for monthly budgeting purposes.
 
 ## Maybe Hosting
 
@@ -12,7 +14,7 @@ Maybe is a fully working personal finance app that can be [self hosted with Dock
 
 ## Forking and Attribution
 
-This repo is no longer maintained. You’re free to fork it under the AGPLv3. To stay compliant and avoid trademark issues:
+This repo is no longer maintained by its original authors. This fork is maintained by me, Scott Carrion. You’re free to fork it under the AGPLv3. To stay compliant and avoid trademark issues:
 
 - Be sure to include the original [AGPLv3 license](https://github.com/maybe-finance/maybe/blob/main/LICENSE) and clearly state in your README that your fork is based on Maybe Finance but is **not affiliated with or endorsed by** Maybe Finance Inc.
 - "Maybe" is a trademark of Maybe Finance Inc. and therefore, use of it is NOT allowed in forked repositories (or the logo)
