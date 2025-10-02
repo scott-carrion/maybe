@@ -68,7 +68,7 @@ coverage
 # Ignore node related files
 node_modules
 
-compose.yml
+#compose.yml
 
 plaid_test_accounts/
 
