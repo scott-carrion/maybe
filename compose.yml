@@ -75,7 +75,8 @@ services:
   db:
     #image: postgres:16
     # This sha256 digest is old, but known to work
-    image: postgres@sha256:e95b0cb95f719e0ce156c2bc5545c89fbd98a1a692845a5331ddc79ea61f1b1e
+    #image: postgres@sha256:e95b0cb95f719e0ce156c2bc5545c89fbd98a1a692845a5331ddc79ea61f1b1e
+    image: harbor.churroscastle.com/library/postgres:maybe-churroscastle
     restart: unless-stopped
     volumes:
       - postgres-data:/var/lib/postgresql/data
@@ -90,7 +91,8 @@ services:
   redis:
     #image: redis:latest
     # This sha256 digest is old, but known to work
-    image: redis@sha256:bd41d55aae1ecff61b2fafd0d66761223fe94a60373eb6bb781cfbb570a84079
+    #image: redis@sha256:bd41d55aae1ecff61b2fafd0d66761223fe94a60373eb6bb781cfbb570a84079
+    image: harbor.churroscastle.com/library/redis:maybe-churroscastle
     ports:
       - 6379:6379
     restart: unless-stopped
