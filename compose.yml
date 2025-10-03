@@ -41,6 +41,10 @@ x-rails-env: &rails_env
   DB_HOST: db
   DB_PORT: 5432
   REDIS_URL: redis://redis:6379/1
+  PLAID_ENV: ${PLAID_ENV:-NOTSET}
+  PLAID_CLIENT_ID: ${PLAID_CLIENT_ID:-NOTSET}
+  PLAID_SECRET: ${PLAID_SECRET:-NOTSET}
+
 
 services:
   web:
@@ -51,6 +55,8 @@ services:
       - app-storage:/rails/storage
     ports:
       - 3000:3000
+    dns:
+      - 192.168.50.2
     restart: unless-stopped
     environment:
       <<: *rails_env
@@ -65,6 +71,8 @@ services:
     #image: maybe-test
     image: harbor.churroscastle.com/library/maybe-churroscastle:latest
     command: bundle exec sidekiq
+    dns:
+      - 192.168.50.2
     restart: unless-stopped
     depends_on:
       redis:
@@ -78,6 +86,8 @@ services:
     #image: postgres@sha256:e95b0cb95f719e0ce156c2bc5545c89fbd98a1a692845a5331ddc79ea61f1b1e
     image: harbor.churroscastle.com/library/postgres:maybe-churroscastle
     restart: unless-stopped
+    dns:
+      - 192.168.50.2
     volumes:
       - postgres-data:/var/lib/postgresql/data
     environment:
@@ -93,6 +103,8 @@ services:
     # This sha256 digest is old, but known to work
     #image: redis@sha256:bd41d55aae1ecff61b2fafd0d66761223fe94a60373eb6bb781cfbb570a84079
     image: harbor.churroscastle.com/library/redis:maybe-churroscastle
+    dns:
+      - 192.168.50.2
     ports:
       - 6379:6379
     restart: unless-stopped

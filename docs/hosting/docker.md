@@ -94,6 +94,55 @@ SECRET_KEY_BASE="replacemewiththegeneratedstringfromthepriorstep"
 POSTGRES_PASSWORD="replacemewithyourdesireddatabasepassword"
 ```
 
+**IMPORTANT FOR AUTO-SYNCING ACCOUNTS WITH PLAID**
+
+The original authors of Maybe tried to sell a version that they hosted and supported on their(?) servers. The usage of Plaid was intended to be exclusively for this platform, but this has since shut down. 
+
+I have found a method to restore this functionality. In the future, I plan to tweak the code to avoid the need for this workaround, but at any rate, it still works.
+
+In your `.env` file, make sure to include the following:
+
+```txt
+PLAID_ENV=production
+PLAID_CLIENT_ID=<YOUR_ID_HERE>
+PLAID_SECRET=<YOUR_SECRET_HERE>
+```
+
+The included `.env.example` file includes this already.
+
+*For linked accounts/Plaid integration to work, you will need to have a Plaid developer account WITH PRODUCTION ACCESS ENABLED!! Log into the [Plaid dashboard](https://dashboard.plaid.com/onboarding) and send a request to the Plaid support team. Once your account is granted production access, you will have a client ID and a secret key that you can access from your account*
+
+Bear in mind that this API is not free -- it is billed on a "pay-as-you-go" basis. See Plaid's cost schedule and billing information for more info.
+
+As a security measure, Plaid only allows your web client to be redirected to certain URIs after connection of a financial institution is complete.
+
+By default, your account will have no allowed redirect URIs. You will need to log in to the Plaid developer dashboard, and navigate to: "Platform > Developers > API > Allowed redirect URIs". Click "Configure" and add the URL that Maybe is hosted on.
+
+For me personally, I use [Nginx Proxy Manager](https://nginxproxymanager.com/) to give Maybe a friendly DNS name and SSL tunneling. If you're unaware what that means: "http://192.168.x.y:3000" is accessible from "https://maybe.example.com" thanks to the reverse proxy.
+
+So, the allowed redirect URIS that you should configure here are:
+
+```txt
+https://localhost:3000
+https://maybe.example.com
+```
+
+After you have added the production-level Plaid env vars to your `.env` file, and added valid "Allowed redirect URIs", there is one final step to enable the "Link account" feature.
+
+In your Docker Compose file (`compose.yml`), set `SELF_HOSTED` to `false`. Then, launch the app with `docker-compose up`. This works without blowing away existing data.
+
+Log in to Maybe once it is launched and it will say something about a free trial. Accept the free trial and go to `https://yourhostformaybe.com/accounts`. Click "Add account" in the top right corner, and click any account where Plaid is supported (Depository/Cash, Credit Card, Loan, Investment, or Crypto).
+
+When you click on the account type, a new window should pop with two options: "manual" or "link". At this point, you can move on, and do not need to add any accounts.
+
+Tear down the app (`docker-compose down`) and set the `SELF_HOSTED` variable back to `true`. When you restart Maybe, you should now be able to add linked accounts! This feature is, for some reason, disabled by default for self-hosted instances, but works nonetheless if you perform this workaround.
+
+For clarity: There is no 14-day trial that will be enforced and the "link account" button should be enabled in perpetuity after resetting the value of `SELF_HOSTED` to true.
+
+You can now add accounts via the UI as normal, and they will auto-sync balances and transactions *WITHOUT NEEDING TO IMPORT CSV FILES MANUALLY!!*
+
+Enjoy!
+
 ### Step 4: Run the app
 
 You are now ready to run the app. Start with the following command to make sure everything is working:
@@ -135,7 +184,7 @@ Your app is now set up. You can visit it at `http://localhost:3000` in your brow
 
 If you find bugs or have a feature request, be sure to read through our [contributing guide here](https://github.com/maybe-finance/maybe/wiki/How-to-Contribute-Effectively-to-this-Project).
 
-## How to update your app
+## How to update your app (no longer applies)
 
 The mechanism that updates your self-hosted Maybe app is the GHCR (Github Container Registry) Docker image that you see in the `compose.yml` file:
 
