@@ -141,6 +141,12 @@ For clarity: There is no 14-day trial that will be enforced and the "link accoun
 
 You can now add accounts via the UI as normal, and they will auto-sync balances and transactions *WITHOUT NEEDING TO IMPORT CSV FILES MANUALLY!!*
 
+One last major hurdle to get this to work: Plaid webhooks. Plaid informs its data clients (Maybe) of new data available via webhooks. That is, a Plaid server reaches out to: `https://yourhostformaybe.com/webhooks/plaid`. For this to work, you will need a registered public DNS name (which unfortunately does cost money) and the ability to port-forward ports 80 (HTTP) and 443 (HTTPS) on your router. If you aren't comfortable hosting from home, you can also use a rented server or cloud instance to host Maybe. Nonetheless, you will still need a DNS name that you can control.
+
+I used Cloudflare for this purpose, but just about any capable DNS registrar should work.
+
+If you're going this route, and are not hosting this on a cloud platform separate from your home network, I **STRONGLY RECOMMEND** mandating SSL, and using a proxy manager on your local network to restrict access control to only Maybe on your network. An SELinux host would also be a good idea. You will need to make your Maybe instance and public domain accessible from WAN by directing your DNS host to your home network's public IP. A detailed guide on how to do this can be generated upon request; either create an issue against this project or [email me](mailto:scott.carrion@gmail.com).
+
 Enjoy!
 
 ### Step 4: Run the app
