@@ -49,8 +49,8 @@ x-rails-env: &rails_env
 services:
   web:
     #image: ghcr.io/maybe-finance/maybe:latest
-    #image: maybe-test
-    image: harbor.churroscastle.com/library/maybe-churroscastle:latest
+    image: maybe-test
+    #image: harbor.churroscastle.com/library/maybe-churroscastle:latest
     volumes:
       - app-storage:/rails/storage
     ports:
@@ -68,8 +68,8 @@ services:
 
   worker:
     #image: ghcr.io/maybe-finance/maybe:latest
-    #image: maybe-test
-    image: harbor.churroscastle.com/library/maybe-churroscastle:latest
+    image: maybe-test
+    #image: harbor.churroscastle.com/library/maybe-churroscastle:latest
     command: bundle exec sidekiq
     dns:
       - 192.168.50.2
