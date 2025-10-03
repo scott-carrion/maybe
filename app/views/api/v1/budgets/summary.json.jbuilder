@@ -1,29 +1,22 @@
 # frozen_string_literal: true
 
-#json.accounts @accounts do |account|
-#  json.id account.id
-#  json.name account.name
-#  json.balance account.balance_money.format
-#  json.currency account.currency
-#  json.classification account.classification
-#  json.account_type account.accountable_type.underscore
-#end
-#
-#json.pagination do
-#  json.page @pagy.page
-#  json.per_page @per_page
-#  json.total_count @pagy.count
-#  json.total_pages @pagy.pages
-#end
-
+# JSON builder for budget summary API endpoint
 #json.total_spent @income_statement.total_expenses
 #json.total_earned @income_statement.total_income
 #json.total_budgeted @budget.total_amount
 
+# Overall budget status summary
+#json.total_budgeted_spending @budget.budgeted_spending
+# XXX: DO WE NEED ABOVE?
+json.total_allocated_spending @budget.allocated_spending
+json.total_actual_spending @budget.actual_spending
+json.total_available_to_spend @budget.available_to_spend
+json.total_percent_spent @budget.percent_of_budget_spent
+json.total_percent_overage @budget.overage_percent
+# XXX: DO WE NEED ABOVE?
+
 # Iterate for all categories in selected budget
 json.categories @budget.budget_categories.includes(:category) do |budget_category|
-  #next if budget_category.category.income?
-
   # Dump name, actual $ spend, $ available, and % budget spent
   json.name budget_category.category.name
   json.spent budget_category.actual_spending
