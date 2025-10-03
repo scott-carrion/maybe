@@ -2,20 +2,22 @@
 
 # JSON builder for budget summary API endpoint
 # Overall budget status summary
-# Allocated (budgeted) spending, in chosen currency
-json.total_allocated_spending @budget.allocated_spending.to_s
-
-# How much money was actually spent, in chosen currency
-json.total_actual_spending @budget.actual_spending.to_s
-
-# How much money is available to spend, in chosen currency
-json.total_available_to_spend @budget.available_to_spend.to_s
-
-# Percent of budget funds spent for the month
-json.total_percent_spent @budget.percent_of_budget_spent.to_s
-
-# Percent over budget for the month
-json.total_percent_overage @budget.overage_percent.to_s
+json.totals do
+  # Allocated (budgeted) spending, in chosen currency
+  json.money_allocated @budget.allocated_spending.to_s
+  
+  # How much money was actually spent, in chosen currency
+  json.money_spent @budget.actual_spending.to_s
+  
+  # How much money is available to spend, in chosen currency
+  json.money_available @budget.available_to_spend.to_s
+  
+  # Percent of budget funds spent for the month
+  json.percent_spent @budget.percent_of_budget_spent.to_s
+  
+  # Percent over budget for the month
+  json.percent_overage @budget.overage_percent.to_s
+end
 
 # Iterate for all categories in selected budget
 json.categories @budget.budget_categories.includes(:category) do |budget_category|
@@ -24,10 +26,10 @@ json.categories @budget.budget_categories.includes(:category) do |budget_categor
   json.name budget_category.category.name.to_s
 
   # How much money has been spent for this category, in chosen currency
-  json.spent budget_category.actual_spending.to_s
+  json.money_spent budget_category.actual_spending.to_s
 
   # How much money is available to spend for this category, in chosen currency
-  json.available budget_category.available_to_spend.to_s
+  json.money_available budget_category.available_to_spend.to_s
 
   # Percent of category funds spent for the month
   # Unlike the total budget, there is no "percent overage" accessor

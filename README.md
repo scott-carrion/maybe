@@ -4,9 +4,23 @@
 # Maybe: The personal finance app for everyone
 
 > [!IMPORTANT]
-> This repository is no longer actively maintained by its original authors. You can read more about this in their [final release](https://github.com/maybe-finance/maybe/releases/tag/v0.6.0).
-> This is now maintained by Scott Carrion. To date, the only changes are inclusion of a compose.yml with frozen sha256 digests (orignal maintainers were using 'latest', which could unexpectedly cause build issues in the future) and the merge of a "copy previous month's budget" feature that was sorely needed and implemented by a fellow community member. [Link to their original fork](https://github.com/sathudeva7/maybe/tree/sathu-budget-copy-feature)
-> The only other feature I'm thinking of adding is a modification to the code to allow the Plaid "Link Account" button under adding a new account UI to be enabled at all times. Currently a workaround exists to enable it
+> Sadly, the original Maybe Finance repository is no longer actively maintained by its original authors. You can read more about this in their [final release](https://github.com/maybe-finance/maybe/releases/tag/v0.6.0).
+> This is now maintained by Scott Carrion. Community contributions are welcome and encouraged.
+
+## New Features in this Actively Maintained Fork
+
+The following new features have been added in this fork:
+
+* Plaid integration enabled (via workaround for now). See below "self hosted with Docker" link for more details
+* New API endpoint: `/api/v1/budget/summary`. This endpoint fetches summary information about the currently active (monthly) budget. Callers to this (e.g. Home Assistant, Superset, or other dashboarding software) can get quick insights into your (family's) standing with spending for the month!
+* "Copy previous month's budget" easy button, contributed by GitHub user sathudeva7. I tweaked this code and rebased it onto last update to original project. [Link to their original fork](https://github.com/sathudeva7/maybe/tree/sathu-budget-copy-feature)
+* Added known-working sha256 digests for dependent postgres and redis companion containers in the docker compose YAML container. In the far future, if there's some backward-incompatible change introduced to the 'latest' tag for either of these containerized programs, and you `docker pull` them, suddenly the app would stop working. Although these 'latest' labels are retained for now as they seem to work OK at the time of writing, it is trivial to fall back to known-working ones as their digests are listed in the example compose YAML.
+
+## Planned Features in this Actively Maintained Fork
+
+The following features are planned for future contribution:
+
+* Remove original authors' attempt to disable Plaid integration for the "self-hosted" version
 
 ## Maybe Hosting
 
