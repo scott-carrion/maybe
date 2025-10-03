@@ -6,7 +6,7 @@
 > [!IMPORTANT]
 > This repository is no longer actively maintained by its original authors. You can read more about this in their [final release](https://github.com/maybe-finance/maybe/releases/tag/v0.6.0).
 > This is now maintained by Scott Carrion. To date, the only changes are inclusion of a compose.yml with frozen sha256 digests (orignal maintainers were using 'latest', which could unexpectedly cause build issues in the future) and the merge of a "copy previous month's budget" feature that was sorely needed and implemented by a fellow community member. [Link to their original fork](https://github.com/sathudeva7/maybe/tree/sathu-budget-copy-feature)
-> The only other feature I'm thinking of adding is some kind of integration with the Plaid API to auto-sync/import transactions for monthly budgeting purposes.
+> The only other feature I'm thinking of adding is a modification to the code to allow the Plaid "Link Account" button under adding a new account UI to be enabled at all times. Currently a workaround exists to enable it
 
 ## Maybe Hosting
 
